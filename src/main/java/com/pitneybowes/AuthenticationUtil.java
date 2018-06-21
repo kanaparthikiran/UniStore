@@ -1,0 +1,83 @@
+/**
+ * 
+ */
+package com.pitneybowes;
+
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+/**
+ * @author Kiran Kanaparthi
+ *
+ */
+@Component
+public class AuthenticationUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationUtil.class);
+
+	@Autowired
+	private Environment env;
+
+    @Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
+	}
+	
+    
+    HttpHeaders createHeaders(){
+    	   return new HttpHeaders() {{
+//    	         String auth = username + ":" + password;
+    	 		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
+    					env.getProperty("pitneybowes-apisecret")).getBytes());
+    	         String authHeader = "Basic " + encodedString;
+    	         set( "Authorization", authHeader );
+    	      }};
+    	}
+    
+	public final String getAccessToken() {
+//		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
+//					env.getProperty("pitneybowes-apisecret")).getBytes());
+		log.info(" env.getProperty(\"pitneybowes-apisecret\")  "+env.getProperty("pitneybowes-apisecret")
+			+" env.getProperty(\"pitneybowes-apikey\")  "+env.getProperty("pitneybowes-apikey"));
+		
+	      RestTemplate restTemplate = new RestTemplate();
+//	      ResponseEntity<String> jsonResponse = restTemplate.getForEntity("http://gturnquist-quoters.cfapps.io/api/random", String.class);
+//	      log.info("The Json Response from Service is "+ 
+//	    		  jsonResponse.toString());
+
+		String tokenURI = env.getProperty("pitneybowes-token-uri");
+		
+		log.info(" The Token URI is "+tokenURI);
+		//Map<String,String> requestData = new ConcurrentHashMap<>();
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();     
+		body.put("grant_type", Arrays.asList("client_credentials"));
+		//requestData.put("grant_type", "client_credentials");
+		HttpHeaders httpHeaders = createHeaders();
+		httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		HttpEntity<?> httpEntity = new HttpEntity<Object>(body, httpHeaders);
+		
+		ResponseEntity<String> postResponse =  restTemplate.exchange(tokenURI, HttpMethod.POST, httpEntity, String.class);
+		
+		//ResponseEntity<String> postResponse = restTemplate.postForEntity(tokenURI, "{\"grant_type\":\"client_credentials\"}", String.class);
+		log.info(" The Post Response is "+ postResponse);
+		return postResponse.toString();
+	}
+	
+}
