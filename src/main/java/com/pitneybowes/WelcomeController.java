@@ -34,7 +34,8 @@ public class WelcomeController {
 	public String welcome(Map<String, Object> model) {
 		
       RestTemplate restTemplate = new RestTemplate();
-      ResponseEntity<String> jsonResponse = restTemplate.getForEntity("http://gturnquist-quoters.cfapps.io/api/random", String.class);
+      ResponseEntity<String> jsonResponse = restTemplate.getForEntity
+    		  ("http://gturnquist-quoters.cfapps.io/api/random", String.class);
       log.info("The Json Response from Service is "+ 
     		  jsonResponse.toString());
       

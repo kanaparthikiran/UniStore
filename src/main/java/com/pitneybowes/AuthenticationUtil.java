@@ -6,7 +6,6 @@ package com.pitneybowes;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +21,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 /**
  * @author Kiran Kanaparthi
  *
@@ -51,6 +55,11 @@ public class AuthenticationUtil {
     	      }};
     	}
     
+    public String getAVSURL() {
+    	String avsURL = env.getProperty("pitneybowes-avs-url");
+    	return avsURL;
+    }
+    
 	public final String getAccessToken() {
 //		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
 //					env.getProperty("pitneybowes-apisecret")).getBytes());
@@ -71,13 +80,42 @@ public class AuthenticationUtil {
 		//requestData.put("grant_type", "client_credentials");
 		HttpHeaders httpHeaders = createHeaders();
 		httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		
 		HttpEntity<?> httpEntity = new HttpEntity<Object>(body, httpHeaders);
 		
-		ResponseEntity<String> postResponse =  restTemplate.exchange(tokenURI, HttpMethod.POST, httpEntity, String.class);
+		ResponseEntity<Map> postResponse =  restTemplate.exchange(tokenURI, HttpMethod.POST, httpEntity, Map.class);
 		
 		//ResponseEntity<String> postResponse = restTemplate.postForEntity(tokenURI, "{\"grant_type\":\"client_credentials\"}", String.class);
-		log.info(" The Post Response is "+ postResponse);
-		return postResponse.toString();
+		log.info(" The Post Response is "+ postResponse.getBody());
+		Map<String,String> jsonMap = postResponse.getBody();
+		String accessToken = getProperty(postResponse, "access_token");
+		accessToken = jsonMap.get("access_token");
+		return accessToken;
 	}
 	
+	
+	/**
+	 * This method get the value for a Property from Json Object
+	 * 
+	 * @param jsonStr
+	 * @param propertyName
+	 * @return
+	 */
+	public static String getProperty(Object jsonStr, String propertyName) {
+		String propertyValue = null;
+		log.debug("jsonStr: " + jsonStr);
+
+		if (jsonStr != null && (jsonStr instanceof String) && !StringUtils.isEmpty((String) jsonStr)) {
+			try {
+				JsonParser jsonParser = new JsonParser();
+				JsonElement jsonElement = jsonParser.parse((String) jsonStr);
+				if(jsonElement.isJsonObject())
+					propertyValue = ((JsonObject)jsonElement).get(propertyName).getAsString();
+				log.debug("Property *" + propertyName + "* from JSON object is: " + propertyValue);
+			} catch (Exception e) {
+				log.error("Exception parsing JSON:"+jsonStr, e);
+			}
+		}
+		return propertyValue;
+	}
 }
