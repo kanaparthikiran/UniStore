@@ -60,6 +60,11 @@ public class AuthenticationUtil {
     	return avsURL;
     }
     
+    public String getEmailValidationURL() {
+    	String emailValidationURL = env.getProperty("pitneybowes-email-url");
+    	return emailValidationURL;
+    }
+    
 	public final String getAccessToken() {
 //		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
 //					env.getProperty("pitneybowes-apisecret")).getBytes());

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.GsonBuilder;
+import com.pitneybowes.constants.UniStoreServicesConstants;
 
 
 /**
@@ -26,7 +27,7 @@ import com.google.gson.GsonBuilder;
  *
  */
 @RestController
-@RequestMapping("/addressVerification/v1")
+@RequestMapping(UniStoreServicesConstants.ADDRESS_VERIFICATION_PATH)
 public class AddressVerificationServiceController {
 
     private static final Logger log = LoggerFactory.getLogger(AddressVerificationServiceController.class);
