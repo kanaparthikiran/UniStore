@@ -65,6 +65,11 @@ public class AuthenticationUtil {
     	return emailValidationURL;
     }
     
+    public String getGlobalWatchListURL() {
+    	String globalWatchListURL = env.getProperty("pitneybowes-global-watch-url");
+    	return globalWatchListURL;
+    }
+    
 	public final String getAccessToken() {
 //		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
 //					env.getProperty("pitneybowes-apisecret")).getBytes());
