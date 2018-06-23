@@ -3,23 +3,57 @@
  */
 package com.unistore.payment;
 
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Kiran Kanaparthi
  *
  */
-@RestController
+@Controller
 public class UIMappingController {
 
-	@RequestMapping(path="/address",method=RequestMethod.GET,
-			produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-			public String address(String address) {
-			  return "This is Address JSP";
+	  private static final Logger log = LoggerFactory.getLogger(UIMappingController.class);
+
+	@RequestMapping(path="/address",method=RequestMethod.GET)
+	//,produces= MediaType.APPLICATION_JSON_UTF8_VALUE
+			public String address(Map<String, Object> model) {
+			model.put("message", "hello test");
+			log.info(" Started UIMappingController->address  ");
+			// return "address";
+		      RestTemplate restTemplate = new RestTemplate();
+		      ResponseEntity<String> jsonResponse = restTemplate.getForEntity
+		    		  ("http://gturnquist-quoters.cfapps.io/api/random", String.class);
+		      log.info("The Json Response from Service is "+ 
+		    		  jsonResponse.toString());
+		      
+				model.put("message", "test");
+				return "address";
 	}
+	
+//	@RequestMapping("/")
+//	public String welcome(Map<String, Object> model) {
+//		
+//      RestTemplate restTemplate = new RestTemplate();
+//      ResponseEntity<String> jsonResponse = restTemplate.getForEntity
+//    		  ("http://gturnquist-quoters.cfapps.io/api/random", String.class);
+//      log.info("The Json Response from Service is "+ 
+//    		  jsonResponse.toString());
+//      
+//      String accessToken = authenticationUtil.getCachedToken(PitneyBowesServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PITNEY_BOWES);
+//      
+//      this.message = jsonResponse.toString();
+//		model.put("message", this.message);
+//		return "welcome";
+//	}
 	
 	@RequestMapping(path="/my-account",method=RequestMethod.GET,
 			produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -63,11 +97,11 @@ public class UIMappingController {
 			  return "This is Thank You JSP";
 	}
 	
-	@RequestMapping(path="/welcome",method=RequestMethod.GET,
-			produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-			public String welcome(String address) {
-			  return "This is Welcome JSP";
-	}
+//	@RequestMapping(path="/welcome",method=RequestMethod.GET,
+//			produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
+//			public String welcome(String address) {
+//			  return "This is Welcome JSP";
+//	}
 	
 	
 }
