@@ -38,7 +38,7 @@ public class GlobalWatchListControllerNeedToTest {
 		@RequestMapping(path="/verify",method=RequestMethod.GET,
 		produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public String verifyWatchList(String emailAddress,String firstName,String lastName) {
-	      String accessToken = authenticationUtil.getAccessToken();
+	      String accessToken = authenticationUtil.getCachedToken(PitneyBowesServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PITNEY_BOWES);
 	      log.info(" accessToken returned from  Auth Service is "+ accessToken);
 	      String avsResponse = callWatchListService(accessToken,firstName,lastName);
 		  return avsResponse;

@@ -20,4 +20,8 @@ public class UniStoreServicesConstants {
 	public static final String MYACCOUNT_VERIFICATION_PATH = "/myAccount/v1";
 	public static final String ORDER_HISTORY_VERIFICATION_PATH = "/orderHistory/v1";
 
+	
+	public static final String ACCESS_TOKEN= "access_token";
+	public static final String EXPIRES_IN_PAYPAL = "expires_in";
+	public static final String EXPIRES_IN_PITNEY_BOWES = "expiresIn";
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import com.pitneybowes.constants.UniStoreServicesConstants;
 import com.pitneybowes.util.PitneyBowesServicesHelper;
 
 @Controller
@@ -41,7 +42,7 @@ public class WelcomeController {
       log.info("The Json Response from Service is "+ 
     		  jsonResponse.toString());
       
-      String accessToken = authenticationUtil.getAccessToken();
+      String accessToken = authenticationUtil.getCachedToken(PitneyBowesServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PITNEY_BOWES);
       
       this.message = jsonResponse.toString();
 		model.put("message", this.message);

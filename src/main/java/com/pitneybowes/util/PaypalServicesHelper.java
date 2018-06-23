@@ -6,6 +6,7 @@ package com.pitneybowes.util;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +23,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import com.pitneybowes.constants.UniStoreServicesConstants;
 
 /**
  * @author Kiran Kanaparthi
@@ -72,7 +75,7 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
 //    	return globalWatchListURL;
 //    }
     
-	public final String getAccessToken() {
+	public Map<String,Object> getAccessToken() {
 	      RestTemplate restTemplate = new RestTemplate();
 		String tokenURI = env.getProperty("paypal-oath-service");
 		log.info(" The Token URI is "+tokenURI);
@@ -85,12 +88,24 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
 
 		HttpEntity<?> httpEntity = new HttpEntity<Object>(body, httpHeaders);
 		
-		ResponseEntity<Map> postResponse =  restTemplate.exchange(tokenURI, HttpMethod.POST, httpEntity, Map.class);
+		ResponseEntity<Map> postResponse =  restTemplate.exchange
+				(tokenURI, HttpMethod.POST, httpEntity, Map.class);
 		log.info(" The Post Response is "+ postResponse.getBody());
-		Map<String,String> jsonMap = postResponse.getBody();
-		String accessToken = getProperty(postResponse, "access_token");
-		accessToken = jsonMap.get("access_token");
-		return accessToken;
+		Map<Object,Object> jsonMap = postResponse.getBody();
+		String accessToken = null;
+				//getProperty(postResponse, UniStoreServicesConstants.ACCESS_TOKEN);
+		Integer expiresIn = null;
+//				(Integer.parseInt
+//				(getProperty(postResponse, UniStoreServicesConstants.EXPIRES_IN_PAYPAL)));
+		accessToken = (String)jsonMap.get(UniStoreServicesConstants.ACCESS_TOKEN);
+		log.info(" acceess Token "+accessToken);
+
+		log.info((" expires In "+jsonMap.get(UniStoreServicesConstants.EXPIRES_IN_PAYPAL)));
+		expiresIn = (Integer)jsonMap.get(UniStoreServicesConstants.EXPIRES_IN_PAYPAL);
+		Map<String,Object> accessTokenMap = new ConcurrentHashMap<>();
+		accessTokenMap.put(UniStoreServicesConstants.ACCESS_TOKEN, accessToken);
+		accessTokenMap.put(UniStoreServicesConstants.EXPIRES_IN_PAYPAL, expiresIn);
+		return accessTokenMap;
 	}
 	
 }

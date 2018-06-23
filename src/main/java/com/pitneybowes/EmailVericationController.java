@@ -4,6 +4,7 @@
 package com.pitneybowes;
 
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,18 +32,20 @@ import com.pitneybowes.util.PitneyBowesServicesHelper;
 public class EmailVericationController {
 
 	  private static final Logger log = LoggerFactory.getLogger(EmailVericationController.class);
-
+	  
+	  
 	    @Autowired
-	    PitneyBowesServicesHelper authenticationUtil;
+	    static PitneyBowesServicesHelper authenticationUtil;
 	    
 		@RequestMapping(path="/verify",method=RequestMethod.GET,
 		produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public String verifyEmail(String emailAddress) {
-	      String accessToken = authenticationUtil.getAccessToken();
+	      String accessToken = authenticationUtil.getCachedToken(PitneyBowesServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PITNEY_BOWES);
 	      log.info(" accessToken returned from  Auth Service is "+ accessToken);
 	      String avsResponse = callEmailService(accessToken,emailAddress);
 		  return avsResponse;
 		}
+
 
 		
 	    HttpHeaders createHeaders(){

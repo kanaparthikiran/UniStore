@@ -38,7 +38,7 @@ public class PaymentAuthorizationController {
 		@RequestMapping(path="/verify",method=RequestMethod.GET,
 		produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public String verifyAddress(String address) {
-	      String accessToken = servicesHelper.getAccessToken();
+	      String accessToken = servicesHelper.getCachedToken(PaypalServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PAYPAL);
 	      log.info(" accessToken returned from  Auth Service is "+ accessToken);
 	      String invoicesList = callInvoiceService(accessToken);
 		  return invoicesList;
@@ -61,7 +61,7 @@ public class PaymentAuthorizationController {
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 			log.info(" accessToken  "+ accessToken);
 			httpHeaders.add("Authorization", "Bearer "+accessToken);
-			httpHeaders.add("Host", "api.pitneybowes.com");
+			//httpHeaders.add("Host", "api.pitneybowes.com");
 			HttpEntity<?> httpEntity = new HttpEntity<>(null, httpHeaders);
 			ResponseEntity<Map> postResponse =  restTemplate.exchange
 					(avsURL, HttpMethod.GET, httpEntity, Map.class);

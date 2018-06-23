@@ -39,7 +39,7 @@ public class AddressVerificationServiceController {
 	@RequestMapping(path="/verify",method=RequestMethod.GET,
 	produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public String verifyAddress(String address) {
-      String accessToken = authenticationUtil.getAccessToken();
+      String accessToken = authenticationUtil.getCachedToken(PitneyBowesServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PITNEY_BOWES);
       log.info(" accessToken returned from  Auth Service is "+ accessToken);
       String avsResponse = callAVSService(accessToken);
 	  return avsResponse;

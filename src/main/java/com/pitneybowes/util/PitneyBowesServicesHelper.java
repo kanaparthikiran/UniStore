@@ -22,6 +22,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+
+import com.pitneybowes.constants.UniStoreServicesConstants;
 /**
  * @author Kiran Kanaparthi
  *
@@ -30,6 +32,7 @@ import org.springframework.web.client.RestTemplate;
 public class PitneyBowesServicesHelper extends ApplicationServicesHelper {
 
     private static final Logger log = LoggerFactory.getLogger(PitneyBowesServicesHelper.class);
+	
 
 	@Autowired
 	private Environment env;
@@ -38,17 +41,20 @@ public class PitneyBowesServicesHelper extends ApplicationServicesHelper {
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
 		return builder.build();
 	}
+
 	
-    
-    public HttpHeaders createHeaders(){
+    /**
+     * 
+     * @return
+     */
+    public  HttpHeaders createHeaders(){
     	   return new HttpHeaders() {/**
 			 * 
 			 */
 			private static final long serialVersionUID = -3804363158474230702L;
-
 		{
-//    	         String auth = username + ":" + password;
-    	 		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
+    	 		String encodedString = Base64.getEncoder().
+    	 				encodeToString((env.getProperty("pitneybowes-apikey")+":"+
     					env.getProperty("pitneybowes-apisecret")).getBytes());
     	         String authHeader = "Basic " + encodedString;
     	         set( "Authorization", authHeader );
@@ -70,7 +76,8 @@ public class PitneyBowesServicesHelper extends ApplicationServicesHelper {
     	return globalWatchListURL;
     }
     
-	public final String getAccessToken() {
+
+	public  final Map<String,Object> getAccessToken() {
 //		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
 //					env.getProperty("pitneybowes-apisecret")).getBytes());
 		log.info(" env.getProperty(\"pitneybowes-apisecret\")  "+env.getProperty("pitneybowes-apisecret")
@@ -98,9 +105,13 @@ public class PitneyBowesServicesHelper extends ApplicationServicesHelper {
 		//ResponseEntity<String> postResponse = restTemplate.postForEntity(tokenURI, "{\"grant_type\":\"client_credentials\"}", String.class);
 		log.info(" The Post Response is "+ postResponse.getBody());
 		Map<String,String> jsonMap = postResponse.getBody();
-		String accessToken = getProperty(postResponse, "access_token");
-		accessToken = jsonMap.get("access_token");
-		return accessToken;
+		String accessToken = getProperty(postResponse, UniStoreServicesConstants.ACCESS_TOKEN);
+		accessToken = jsonMap.get(UniStoreServicesConstants.ACCESS_TOKEN);
+		long expiresInMinutes = Long.parseLong(jsonMap.get(UniStoreServicesConstants.EXPIRES_IN_PITNEY_BOWES));
+		tokenCache.put(UniStoreServicesConstants.ACCESS_TOKEN,accessToken);
+		
+		tokenCache.put(UniStoreServicesConstants.EXPIRES_IN_PITNEY_BOWES, addTimeToCurrentTime((int)(expiresInMinutes)));
+		return tokenCache;
 	}
 	
 	
