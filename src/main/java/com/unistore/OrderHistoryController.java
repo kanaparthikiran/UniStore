@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pitneybowes;
+package com.unistore;
 
 /**
  * @author Kiran Kanaparthi

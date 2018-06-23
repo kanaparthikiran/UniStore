@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pitneybowes.util;
+package com.unistore.util;
 
 import java.util.Arrays;
 import java.util.Base64;
@@ -23,7 +23,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.pitneybowes.constants.UniStoreServicesConstants;
+import com.unistore.constants.UniStoreServicesConstants;
 /**
  * @author Kiran Kanaparthi
  *

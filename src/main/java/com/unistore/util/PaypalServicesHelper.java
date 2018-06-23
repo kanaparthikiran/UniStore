@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pitneybowes.util;
+package com.unistore.util;
 
 import java.util.Arrays;
 import java.util.Base64;
@@ -24,7 +24,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import com.pitneybowes.constants.UniStoreServicesConstants;
+import com.unistore.constants.UniStoreServicesConstants;
 
 /**
  * @author Kiran Kanaparthi
@@ -45,14 +45,13 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
 		return builder.build();
 	}
     
+    @Override
     protected HttpHeaders createHeaders(){
- 	   return new HttpHeaders() {/**
-		 * 
-		 */
+ 	   return new HttpHeaders() {
 		private static final long serialVersionUID = 5428739747745980088L;
-
-	{
- 	 		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("paypal-client-id")+":"+
+		{
+ 	 		String encodedString = Base64.getEncoder().encodeToString
+ 	 				((env.getProperty("paypal-client-id")+":"+
  					env.getProperty("paypal-auth-token")).getBytes());
  	         String authHeader = "Basic " + encodedString;
  	         log.info(" authHeader "+authHeader);
@@ -74,7 +73,13 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
 //    	String globalWatchListURL = env.getProperty("pitneybowes-global-watch-url");
 //    	return globalWatchListURL;
 //    }
-    
+
+    /**
+     * This method gets the Access Token, and Expiry Time 
+     * from the Auth Service
+     * 
+     */
+    @Override
 	public Map<String,Object> getAccessToken() {
 	      RestTemplate restTemplate = new RestTemplate();
 		String tokenURI = env.getProperty("paypal-oath-service");
@@ -93,13 +98,9 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
 		log.info(" The Post Response is "+ postResponse.getBody());
 		Map<Object,Object> jsonMap = postResponse.getBody();
 		String accessToken = null;
-				//getProperty(postResponse, UniStoreServicesConstants.ACCESS_TOKEN);
 		Integer expiresIn = null;
-//				(Integer.parseInt
-//				(getProperty(postResponse, UniStoreServicesConstants.EXPIRES_IN_PAYPAL)));
 		accessToken = (String)jsonMap.get(UniStoreServicesConstants.ACCESS_TOKEN);
 		log.info(" acceess Token "+accessToken);
-
 		log.info((" expires In "+jsonMap.get(UniStoreServicesConstants.EXPIRES_IN_PAYPAL)));
 		expiresIn = (Integer)jsonMap.get(UniStoreServicesConstants.EXPIRES_IN_PAYPAL);
 		Map<String,Object> accessTokenMap = new ConcurrentHashMap<>();

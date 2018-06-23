@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pitneybowes;
+package com.unistore;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.GsonBuilder;
-import com.pitneybowes.constants.UniStoreServicesConstants;
-import com.pitneybowes.util.PitneyBowesServicesHelper;
+import com.unistore.constants.UniStoreServicesConstants;
+import com.unistore.util.PitneyBowesServicesHelper;
 
 /**
  * @author Kiran Kanaparthi

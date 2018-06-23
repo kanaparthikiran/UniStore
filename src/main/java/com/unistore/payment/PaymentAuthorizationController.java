@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pitneybowes.payment;
+package com.unistore.payment;
 
 import java.util.Map;
 
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.GsonBuilder;
-import com.pitneybowes.constants.UniStoreServicesConstants;
-import com.pitneybowes.util.PaypalServicesHelper;
+import com.unistore.constants.UniStoreServicesConstants;
+import com.unistore.util.PaypalServicesHelper;
 
 /**
  * @author Kiran Kanaparthi

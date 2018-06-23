@@ -1,4 +1,4 @@
-package com.pitneybowes.util;
+package com.unistore.util;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -21,7 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.pitneybowes.constants.UniStoreServicesConstants;
+import com.unistore.constants.UniStoreServicesConstants;
 
 /**
  * 

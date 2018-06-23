@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pitneybowes.constants;
+package com.unistore.constants;
 
 /**
  * @author Kiran Kanaparthi

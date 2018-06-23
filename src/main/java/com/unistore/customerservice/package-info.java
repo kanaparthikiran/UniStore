@@ -5,4 +5,4 @@
  * @author Kiran Kanaparthi
  *
  */
-package com.pitneybowes.customerservice;
+package com.unistore.customerservice;

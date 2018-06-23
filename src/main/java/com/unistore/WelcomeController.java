@@ -1,4 +1,4 @@
-package com.pitneybowes;
+package com.unistore;
 
 import java.util.Map;
 
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
-import com.pitneybowes.constants.UniStoreServicesConstants;
-import com.pitneybowes.util.PitneyBowesServicesHelper;
+import com.unistore.constants.UniStoreServicesConstants;
+import com.unistore.util.PitneyBowesServicesHelper;
 
 @Controller
 public class WelcomeController {
