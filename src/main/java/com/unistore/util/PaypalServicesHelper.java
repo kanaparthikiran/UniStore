@@ -64,15 +64,15 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
     	return invoiceURL;
     }
     
-    public String getAllPaymentsURL() {
+    public String getPaymentsURL() {
     	String allPaymentsURL = env.getProperty("paypal-all-payments-service");
     	return allPaymentsURL;
     }
-//    
-//    public String getGlobalWatchListURL() {
-//    	String globalWatchListURL = env.getProperty("pitneybowes-global-watch-url");
-//    	return globalWatchListURL;
-//    }
+    
+    public String getCreateOrderURL() {
+    	String createOrderURL = env.getProperty("paypal-create-order-service");
+    	return createOrderURL;
+    }
 
     /**
      * This method gets the Access Token, and Expiry Time 
