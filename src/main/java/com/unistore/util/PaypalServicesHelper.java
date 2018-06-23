@@ -63,11 +63,11 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
     	String invoiceURL = env.getProperty("paypal-invoices-service");
     	return invoiceURL;
     }
-//    
-//    public String getEmailValidationURL() {
-//    	String emailValidationURL = env.getProperty("pitneybowes-email-url");
-//    	return emailValidationURL;
-//    }
+    
+    public String getAllPaymentsURL() {
+    	String allPaymentsURL = env.getProperty("paypal-all-payments-service");
+    	return allPaymentsURL;
+    }
 //    
 //    public String getGlobalWatchListURL() {
 //    	String globalWatchListURL = env.getProperty("pitneybowes-global-watch-url");
