@@ -13,7 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
-import com.pitneybowes.util.ServicesHelper;
+import com.pitneybowes.util.PitneyBowesServicesHelper;
 
 @Controller
 public class WelcomeController {
@@ -21,7 +21,7 @@ public class WelcomeController {
     private static final Logger log = LoggerFactory.getLogger(WelcomeController.class);
 
     @Autowired
-    ServicesHelper authenticationUtil;
+    PitneyBowesServicesHelper authenticationUtil;
     
     @Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {

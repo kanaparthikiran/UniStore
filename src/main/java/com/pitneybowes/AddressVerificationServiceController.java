@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.GsonBuilder;
 import com.pitneybowes.constants.UniStoreServicesConstants;
-import com.pitneybowes.util.ServicesHelper;
+import com.pitneybowes.util.PitneyBowesServicesHelper;
 
 
 /**
@@ -34,7 +34,7 @@ public class AddressVerificationServiceController {
     private static final Logger log = LoggerFactory.getLogger(AddressVerificationServiceController.class);
 
     @Autowired
-    ServicesHelper authenticationUtil;
+    PitneyBowesServicesHelper authenticationUtil;
     
 	@RequestMapping(path="/verify",method=RequestMethod.GET,
 	produces= MediaType.APPLICATION_JSON_UTF8_VALUE)

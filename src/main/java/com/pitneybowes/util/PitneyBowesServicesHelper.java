@@ -32,9 +32,9 @@ import com.google.gson.JsonParser;
  *
  */
 @Component
-public class ServicesHelper {
+public class PitneyBowesServicesHelper extends ApplicationServicesHelper {
 
-    private static final Logger log = LoggerFactory.getLogger(ServicesHelper.class);
+    private static final Logger log = LoggerFactory.getLogger(PitneyBowesServicesHelper.class);
 
 	@Autowired
 	private Environment env;
@@ -104,28 +104,5 @@ public class ServicesHelper {
 	}
 	
 	
-	/**
-	 * This method get the value for a Property from Json Object
-	 * 
-	 * @param jsonStr
-	 * @param propertyName
-	 * @return
-	 */
-	public static String getProperty(Object jsonStr, String propertyName) {
-		String propertyValue = null;
-		log.debug("jsonStr: " + jsonStr);
 
-		if (jsonStr != null && (jsonStr instanceof String) && !StringUtils.isEmpty((String) jsonStr)) {
-			try {
-				JsonParser jsonParser = new JsonParser();
-				JsonElement jsonElement = jsonParser.parse((String) jsonStr);
-				if(jsonElement.isJsonObject())
-					propertyValue = ((JsonObject)jsonElement).get(propertyName).getAsString();
-				log.debug("Property *" + propertyName + "* from JSON object is: " + propertyValue);
-			} catch (Exception e) {
-				log.error("Exception parsing JSON:"+jsonStr, e);
-			}
-		}
-		return propertyValue;
-	}
 }

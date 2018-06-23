@@ -20,7 +20,8 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.GsonBuilder;
 import com.pitneybowes.constants.UniStoreServicesConstants;
-import com.pitneybowes.util.ServicesHelper;
+import com.pitneybowes.util.PaypalServicesHelper;
+import com.pitneybowes.util.PitneyBowesServicesHelper;
 
 /**
  * @author Kiran Kanaparthi
@@ -33,15 +34,15 @@ public class PaymentAuthorizationController {
 	  private static final Logger log = LoggerFactory.getLogger(PaymentAuthorizationController.class);
 
 	    @Autowired
-	    ServicesHelper authenticationUtil;
+	    PaypalServicesHelper servicesHelper;
 	    
 		@RequestMapping(path="/verify",method=RequestMethod.GET,
 		produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public String verifyAddress(String address) {
-	      String accessToken = authenticationUtil.getAccessToken();
+	      String accessToken = servicesHelper.getAccessToken();
 	      log.info(" accessToken returned from  Auth Service is "+ accessToken);
-	      String avsResponse = callAVSService(accessToken);
-		  return avsResponse;
+	     // String avsResponse = callAVSService(accessToken);
+		  return accessToken;
 		}
 
 		
@@ -56,7 +57,7 @@ public class PaymentAuthorizationController {
 	     */
 		public final String callAVSService(String accessToken) {
 		    RestTemplate restTemplate = new RestTemplate();
-		    String avsURL = authenticationUtil.getAVSURL();
+		    String avsURL = servicesHelper.getPaymentURL();
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 			log.info(" accessToken  "+ accessToken);
