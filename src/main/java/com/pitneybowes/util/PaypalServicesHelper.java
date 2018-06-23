@@ -42,11 +42,13 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
 		return builder.build();
 	}
     
-//    paypal-client-id=Ae1_qYulhFDcFzirTOXE9qX8LKK6bts-1QqLUcnI8M9jdHJLHTyj9RJasr3p6A7SvgQlaTgX-_lVJYOQ
-//    		paypal-auth-token=EO4iicUmHvaZ_NMxow1YEwwbW3ygI0pQF63N4o-waoO10yAekUiatNmFFMBgxhjEBEQDZ1VwpsjdpmkA
-    HttpHeaders createHeaders(){
- 	   return new HttpHeaders() {{
-// 	         String auth = username + ":" + password;
+    protected HttpHeaders createHeaders(){
+ 	   return new HttpHeaders() {/**
+		 * 
+		 */
+		private static final long serialVersionUID = 5428739747745980088L;
+
+	{
  	 		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("paypal-client-id")+":"+
  					env.getProperty("paypal-auth-token")).getBytes());
  	         String authHeader = "Basic " + encodedString;
@@ -54,6 +56,7 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
  	         set( "Authorization", authHeader );
  	      }};
  	}
+
     public String getPaymentURL() {
 //    	String avsURL = env.getProperty("pitneybowes-avs-url");
 //    	return avsURL;

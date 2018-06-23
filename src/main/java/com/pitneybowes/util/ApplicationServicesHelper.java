@@ -2,6 +2,7 @@ package com.pitneybowes.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -25,6 +26,14 @@ public class ApplicationServicesHelper {
      protected  String getAccessToken() {
     	return null;
     }
+     
+     /**
+      * 
+      * @return
+      */
+     protected HttpHeaders createHeaders(){
+    	 return null;
+     }
      
 	/**
 	 * This method get the value for a Property from Json Object

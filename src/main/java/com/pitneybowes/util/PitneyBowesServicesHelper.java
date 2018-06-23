@@ -21,12 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 /**
  * @author Kiran Kanaparthi
  *
@@ -45,8 +40,13 @@ public class PitneyBowesServicesHelper extends ApplicationServicesHelper {
 	}
 	
     
-    HttpHeaders createHeaders(){
-    	   return new HttpHeaders() {{
+    public HttpHeaders createHeaders(){
+    	   return new HttpHeaders() {/**
+			 * 
+			 */
+			private static final long serialVersionUID = -3804363158474230702L;
+
+		{
 //    	         String auth = username + ":" + password;
     	 		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
     					env.getProperty("pitneybowes-apisecret")).getBytes());
