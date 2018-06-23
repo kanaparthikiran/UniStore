@@ -64,7 +64,9 @@ public class PaymentAuthorizationController {
 	     */
 		@RequestMapping(path="/createPayment",method=RequestMethod.GET,
 		produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
-	    private final String createPayment(String accessToken) {
+	    private final String createPayment() {
+		      String accessToken = servicesHelper.getCachedToken
+		    		  (PaypalServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PAYPAL);
 		      log.info(" accessToken returned from  Auth Service is "+ accessToken);
 		      String createPaymentURL = servicesHelper.getPaymentsURL();
 				HttpHeaders httpHeaders = new HttpHeaders();
