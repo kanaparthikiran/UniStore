@@ -21,7 +21,6 @@ import org.springframework.web.client.RestTemplate;
 import com.google.gson.GsonBuilder;
 import com.pitneybowes.constants.UniStoreServicesConstants;
 import com.pitneybowes.util.PaypalServicesHelper;
-import com.pitneybowes.util.PitneyBowesServicesHelper;
 
 /**
  * @author Kiran Kanaparthi
@@ -41,8 +40,8 @@ public class PaymentAuthorizationController {
 		public String verifyAddress(String address) {
 	      String accessToken = servicesHelper.getAccessToken();
 	      log.info(" accessToken returned from  Auth Service is "+ accessToken);
-	     // String avsResponse = callAVSService(accessToken);
-		  return accessToken;
+	      String invoicesList = callInvoiceService(accessToken);
+		  return invoicesList;
 		}
 
 		
@@ -55,32 +54,17 @@ public class PaymentAuthorizationController {
 	     * @param accessToken
 	     * @return
 	     */
-		public final String callAVSService(String accessToken) {
+		public final String callInvoiceService(String accessToken) {
 		    RestTemplate restTemplate = new RestTemplate();
-		    String avsURL = servicesHelper.getPaymentURL();
+		    String avsURL = servicesHelper.getInvoiceURL()+"?page=3&page_size=4&total_count_required=true";
 			HttpHeaders httpHeaders = new HttpHeaders();
 			httpHeaders.setContentType(MediaType.APPLICATION_JSON);
 			log.info(" accessToken  "+ accessToken);
 			httpHeaders.add("Authorization", "Bearer "+accessToken);
 			httpHeaders.add("Host", "api.pitneybowes.com");
-
-			String avsRequest = "{ \"options\": { \"OutputCasing\": \"M\" },\n" + 
-					"\"Input\": {\n" + 
-					"\"Row\": [\n" + 
-					"{\n" + 
-					"\"AddressLine1\": \"65 Rio Robles East\",\n" + 
-					"\"AddressLine2\": \"Unit 3228\",\n" + 
-					"\"City\": \"San Jose\",\n" + 
-					"\"Country\": \"US\",\n" + 
-					"\"StateProvince\": \"CA\",\n" + 
-					"\"PostalCode\": \"95134\",\n" + 
-					"\"FirmName\": \"\"\n" + 
-					"}\n" + 
-					"]}}";
-
-			HttpEntity<?> httpEntity = new HttpEntity<>(avsRequest, httpHeaders);
+			HttpEntity<?> httpEntity = new HttpEntity<>(null, httpHeaders);
 			ResponseEntity<Map> postResponse =  restTemplate.exchange
-					(avsURL, HttpMethod.POST, httpEntity, Map.class);
+					(avsURL, HttpMethod.GET, httpEntity, Map.class);
 			log.info(" The Post Response is "+ postResponse.getBody());
 			return new GsonBuilder().create().toJson(postResponse.getBody());
 		}

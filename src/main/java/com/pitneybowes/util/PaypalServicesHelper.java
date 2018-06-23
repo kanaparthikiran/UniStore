@@ -57,10 +57,9 @@ public class PaypalServicesHelper  extends ApplicationServicesHelper {
  	      }};
  	}
 
-    public String getPaymentURL() {
-//    	String avsURL = env.getProperty("pitneybowes-avs-url");
-//    	return avsURL;
-    	return null;
+    public String getInvoiceURL() {
+    	String invoiceURL = env.getProperty("paypal-invoices-service");
+    	return invoiceURL;
     }
 //    
 //    public String getEmailValidationURL() {
