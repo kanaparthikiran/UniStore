@@ -40,7 +40,8 @@ public class PaymentAuthorizationController {
 		@RequestMapping(path="/verify",method=RequestMethod.GET,
 		produces= MediaType.APPLICATION_JSON_UTF8_VALUE)
 		public String verifyAddress(String address) {
-	      String accessToken = servicesHelper.getCachedToken(PaypalServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PAYPAL);
+	      String accessToken = servicesHelper.getCachedToken
+	    		  (PaypalServicesHelper.class,UniStoreServicesConstants.EXPIRES_IN_PAYPAL);
 	      log.info(" accessToken returned from  Auth Service is "+ accessToken);
 	      String invoicesList = callInvoiceService(accessToken);
 	      log.info(" invoices List "+invoicesList);
