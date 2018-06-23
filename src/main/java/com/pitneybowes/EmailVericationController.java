@@ -20,7 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.GsonBuilder;
 import com.pitneybowes.constants.UniStoreServicesConstants;
-import com.pitneybowes.util.AuthenticationUtil;
+import com.pitneybowes.util.ServicesHelper;
 
 /**
  * @author Kiran Kanaparthi
@@ -33,7 +33,7 @@ public class EmailVericationController {
 	  private static final Logger log = LoggerFactory.getLogger(EmailVericationController.class);
 
 	    @Autowired
-	    AuthenticationUtil authenticationUtil;
+	    ServicesHelper authenticationUtil;
 	    
 		@RequestMapping(path="/verify",method=RequestMethod.GET,
 		produces= MediaType.APPLICATION_JSON_UTF8_VALUE)

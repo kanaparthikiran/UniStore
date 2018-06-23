@@ -32,9 +32,9 @@ import com.google.gson.JsonParser;
  *
  */
 @Component
-public class AuthenticationUtil {
+public class ServicesHelper {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthenticationUtil.class);
+    private static final Logger log = LoggerFactory.getLogger(ServicesHelper.class);
 
 	@Autowired
 	private Environment env;
