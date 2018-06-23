@@ -76,7 +76,31 @@ public class PitneyBowesServicesHelper extends ApplicationServicesHelper {
     	return globalWatchListURL;
     }
     
+    public String getGeo911URL() {
+    	String geo911URL = env.getProperty("pitneybowes-geo-911");
+    	return geo911URL;
+    }
 
+    
+    public String getGeoCodeURL() {
+    	String geoCodeURL = env.getProperty("pitneybowes-geo-code");
+    	return geoCodeURL;
+    }
+    
+    public String getGeoLocationURL() {
+    	String geoLocationURL = env.getProperty("pitneybowes-geo-location");
+    	return geoLocationURL;
+    }
+    
+    public String getGeoTax() {
+    	String geoTaxURL = env.getProperty("pitneybowes-geo-tax");
+    	return geoTaxURL;
+    }
+
+    
+    /**
+     * 
+     */
 	public  final Map<String,Object> getAccessToken() {
 //		String encodedString = Base64.getEncoder().encodeToString((env.getProperty("pitneybowes-apikey")+":"+
 //					env.getProperty("pitneybowes-apisecret")).getBytes());

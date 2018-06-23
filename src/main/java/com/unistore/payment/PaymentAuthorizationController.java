@@ -52,10 +52,6 @@ public class PaymentAuthorizationController {
 		  return allPaymentsList;
 		}
 
-		
-	    HttpHeaders createHeaders(){
-	    	   return new HttpHeaders();
-	    }
 	    
 	    /**
 	     * 
