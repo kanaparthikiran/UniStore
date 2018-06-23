@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.GsonBuilder;
-import com.pitneybowes.AuthenticationUtil;
 import com.pitneybowes.constants.UniStoreServicesConstants;
+import com.pitneybowes.util.AuthenticationUtil;
 
 /**
  * @author Kiran Kanaparthi

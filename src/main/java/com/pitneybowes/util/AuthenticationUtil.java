@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pitneybowes;
+package com.pitneybowes.util;
 
 import java.util.Arrays;
 import java.util.Base64;
