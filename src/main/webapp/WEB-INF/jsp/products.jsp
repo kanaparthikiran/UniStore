@@ -18,6 +18,7 @@
 <body>
 
 This is the Products Page, which shows the list of all Available Products
+<a href="product">product items are here</a>
 
 </body>
 

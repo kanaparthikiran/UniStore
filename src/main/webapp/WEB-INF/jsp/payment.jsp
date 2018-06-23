@@ -52,4 +52,7 @@
 
         }, '#paypal-button-container');
     </script>
+    
+        <a href="thank-you">Thank You page is here</a>
+    
 </body>

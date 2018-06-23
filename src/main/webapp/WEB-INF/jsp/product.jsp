@@ -18,6 +18,7 @@
 <body>
 
     This is the Product page which displays the selected Product
+<a href="shopping-cart">shopping cart is here</a>
 
 </body>
 

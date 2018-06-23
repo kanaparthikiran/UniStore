@@ -18,6 +18,8 @@
 <body>
 
     This is the my Account page, which displays the list of User Open Customer Support cases, and the returns section.
+    
+    <a href="order-history">Order History page is here</a>
 
 </body>
 

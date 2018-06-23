@@ -18,6 +18,7 @@
 <body>
 
 	This is the Address Page which validates the Shipping and Billing Address
+    <a href="payment">payment page is here</a>
 
 </body>
 

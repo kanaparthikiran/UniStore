@@ -44,6 +44,7 @@
 	<script type="text/javascript"
 		src="webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<a href="products">list of products are here</a>
 </body>
 
 </html>

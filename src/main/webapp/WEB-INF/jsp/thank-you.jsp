@@ -18,5 +18,6 @@
 <body>
     Thank You for Placing Your Order, You will Receive order Confirmation Email with the Details.
 </body>
+        <a href="my-account">My Account page is here</a>
 
 </html>
