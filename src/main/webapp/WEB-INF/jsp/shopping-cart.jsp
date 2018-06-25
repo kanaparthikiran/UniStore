@@ -14,10 +14,20 @@
 <c:url value="/css/main.css" var="jstlCss" />
 <link href="${jstlCss}" rel="stylesheet" />
 
+<c:url value="/css/buttonStyles.css" var="buttonStyles" />
+<link href="${buttonStyles}" rel="stylesheet" />
+
 </head>
 <body>
     This is Shopping Cart Page
-    <a href="address">address page is here</a>
+    
+<!--     <a href="address">address page is here</a>
+ -->
+<form action="address" method="get">
+
+    <input type="submit" name="submit" value="submit">
+    
+</form>
     
 </body>
 

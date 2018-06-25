@@ -17,8 +17,12 @@
 </head>
 <body>
 
-	This is the Address Page which validates the Shipping and Billing Address
-    <a href="payment">payment page is here</a>
+This is address page
+<form action="payment" method="get">
+
+    <input type="submit" name="submit" value="submit">
+    
+</form>
 
 </body>
 

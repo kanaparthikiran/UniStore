@@ -17,9 +17,22 @@
 </head>
 <body>
 
-This is the Products Page, which shows the list of all Available Products
+<!-- This is the Products Page, which shows the list of all Available Products -->
+
 <a href="product">product items are here</a>
 
+<img src="/images/1.jpg"/>
+<img src="/images/2.jpg"/>
+<img src="/images/3.jpg"/>
+<img src="/images/4.jpg"/>
+<img src="/images/5.jpg"/>
+<img src="/images/6.jpg"/>
+
+<form action="shopping-cart" method="post">
+
+    <input type="submit" name="submit" value="submit">
+    
+</form>
 </body>
 
 </html>

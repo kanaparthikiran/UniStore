@@ -9,6 +9,10 @@ package com.unistore.constants;
  */
 public class UniStoreServicesConstants {
 	
+	private UniStoreServicesConstants() {
+		
+	}
+	
 	public static final String ADDRESS_VERIFICATION_PATH = "/addressVerification/v1";
 	
 	public static final String EMAIL_VERIFICATION_PATH = "/emailVerification/v1";
